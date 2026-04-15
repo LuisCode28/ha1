@@ -30,8 +30,9 @@ public class Calculator {
      */
     public void pressDigitKey(int digit) {
         if(digit > 9 || digit < 0) throw new IllegalArgumentException();
-
-        if(screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";
+        if(screen.equals("0") || latestValue == Double.parseDouble(screen)) {
+            screen = "";
+        }
 
         screen = screen + digit;
     }
@@ -87,13 +88,17 @@ public class Calculator {
     }
 
     /**
-     * Empfängt den Befehl der gedrückten Dezimaltrennzeichentaste, im Englischen üblicherweise "."
-     * Fügt beim ersten Mal Drücken dem aktuellen Bildschirminhalt das Trennzeichen auf der rechten
-     * Seite hinzu und aktualisiert den Bildschirm. Daraufhin eingegebene Zahlen werden rechts vom
-     * Trennzeichen angegeben und daher als Dezimalziffern interpretiert.
-     * Beim zweimaligem Drücken, oder wenn bereits ein Trennzeichen angezeigt wird, passiert nichts.
+     * Empfängt den Befehl der gedrückten Dezimaltrennzeichentaste.
+     * Fügt dem aktuellen Bildschirminhalt das Trennzeichen hinzu. 
+     * Falls gerade eine neue Zahleneingabe nach einer Operation beginnt, 
+     * wird "0." angezeigt.
      */
     public void pressDotKey() {
+        if(latestValue == Double.parseDouble(screen)) {
+            screen = "0.";
+            return;
+        }
+
         if(!screen.contains(".")) screen = screen + ".";
     }
 
