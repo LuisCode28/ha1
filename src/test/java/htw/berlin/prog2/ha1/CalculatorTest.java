@@ -111,38 +111,29 @@ class CalculatorTest {
     }
 
     @Test
-    @DisplayName("should repeat last operation when pressing equals multiple times")
-    void testRepeatedEqualsRepeatsOperation() {
+    @DisplayName("should clear screen when pressing digit after equals")
+    void testDigitAfterEquals() {
         Calculator calc = new Calculator();
-
         calc.pressDigitKey(5);
         calc.pressBinaryOperationKey("+");
-        calc.pressDigitKey(2);
-        calc.pressEqualsKey(); 
-        calc.pressEqualsKey(); 
+        calc.pressDigitKey(5);
+        calc.pressEqualsKey();
+        calc.pressDigitKey(7);
 
-        String expected = "9";
-        String actual = calc.readScreen();
-
-        assertEquals(expected, actual);
+        assertEquals("7", calc.readScreen());
     }
 
     @Test
-    @DisplayName("should calculate percent as unary operation")
-    void testPercentOperation() {
+    @DisplayName("should allow starting second operand with a dot")
+    void testDotAtStartOfSecondOperand() {
         Calculator calc = new Calculator();
-
         calc.pressDigitKey(5);
-        calc.pressDigitKey(0);
-        calc.pressUnaryOperationKey("%");
+        calc.pressBinaryOperationKey("+");
+        calc.pressDotKey(); 
+        calc.pressDigitKey(5); 
 
-        String expected = "0.5";
-        String actual = calc.readScreen();
-
-        assertEquals(expected, actual);
+        assertEquals("0.5", calc.readScreen());
     }
-
-
     
 
 }
